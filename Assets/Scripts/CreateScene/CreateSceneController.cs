@@ -26,7 +26,6 @@ public class CreateSceneController : MonoBehaviour
 
     //インスペクタから指定
     [SerializeField] GameObject attachedPlane;
-    [SerializeField] GameObject rotateAttachedPlane;
     [SerializeField] GameObject blockPlane;
 
     public Material ColoredBlock;
@@ -138,18 +137,24 @@ public class CreateSceneController : MonoBehaviour
         GameObject[] attachedBlocks = GameObject.FindGameObjectsWithTag("Block");
 
 
-        Vector3 attachedPlanePosition = attachedPlane.transform.position;
-        attachedPlanePosition = new Vector3((spawnWidth - 1) / 2, (spawnHeight - 1) / 2, 0);
-        attachedPlane.transform.position = attachedPlanePosition;
+        // Vector3 attachedPlanePosition = attachedPlane.transform.position;
+        // attachedPlanePosition = new Vector3((spawnWidth - 1) / 2, (spawnHeight - 1) / 2, 0);
+        // attachedPlane.transform.position = attachedPlanePosition;
+        GameObject parentPlaneInst = Instantiate(attachedPlane);
+        parentPlaneInst.transform.position = Vector3.zero;
+        parentPlaneInst.AddComponent<ColoredPlane>();
+        parentPlaneInst.GetComponent<ColoredPlane>().height = spawnHeight;
+        parentPlaneInst.GetComponent<ColoredPlane>().width = spawnWidth;
+        parentPlaneInst.GetComponent<ColoredPlane>().themeColor = ColoredBlock;
 
         for (int i = 0; i < attachedBlocks.Length; i++)
         {
             if (!attachedBlocks[i].GetComponent<GrayBlock>().isTransparent())
             {
                 //allblockを複製し、positionを反転
-                SpawnPlane(attachedBlocks[i].transform.position.x, attachedBlocks[i].transform.position.y, attachedPlane);
-
-
+                GameObject planeInstace = SpawnPlane(attachedBlocks[i].transform.position.x, attachedBlocks[i].transform.position.y, attachedPlane);
+                planeInstace.transform.SetParent(parentPlaneInst.transform, true);
+                parentPlaneInst.gameObject.name = "ColoredPlane-";
 
                 // Vector3 copyPosition = copy.transform.position;
                 // copyPosition.x = spawnWidth + spawnWidth - copy.transform.position.x - 1.0f;
@@ -157,6 +162,11 @@ public class CreateSceneController : MonoBehaviour
             }
         }
 
+    }
+
+    public void OnColorChangeButton()
+    {
+        
     }
 
     void FirstBlock(GameObject clickedGameObject)
