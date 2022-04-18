@@ -18,6 +18,8 @@ TagManager:
   - null
   - ParentObject
   - RotatePointObj
+  - Tile
+  - WallTile
   layers:
   - Default
   - TransparentFX
