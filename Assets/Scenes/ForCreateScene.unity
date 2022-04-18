@@ -2525,7 +2525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 0.8786392, b: 0.504717, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2607,9 +2607,10 @@ MonoBehaviour:
   toTransparentButton: {fileID: 31445494}
   toWallButton: {fileID: 706715410}
   tile: {fileID: 6949236675261384533, guid: ab5c6f9fbbabc454bae0cff354ba750b, type: 3}
-  level: 3
-  spawnHeight: 0
-  spawnWidth: 0
+  level: 12
+  spawnHeight: 9
+  spawnWidth: 7
+  targetTileTemp: {fileID: 6294028665826500474, guid: 7c2907a68e49c4ac68fa30eb8cb72f15, type: 3}
 --- !u!4 &1968612743
 Transform:
   m_ObjectHideFlags: 0

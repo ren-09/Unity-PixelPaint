@@ -45,6 +45,9 @@ public class ForCreateSceneController : MonoBehaviour
     public int spawnWidth;
     private List<Vector2> fieldTiles = new List<Vector2>();
 
+    //OnDeleteButton()
+    [SerializeField] GameObject targetTileTemp;
+
 
     void Awake()
     {
@@ -83,7 +86,8 @@ public class ForCreateSceneController : MonoBehaviour
         Color pink = new Color32(254, 125, 244, 255);
         Color lightBrown = new Color32(230, 145, 55, 255);
         Color lightOrange = new Color32(253, 153, 5, 255);
-        Color yellow = new Color32(253, 216, 102, 255);
+        // Color yellow = new Color32(253, 216, 102, 255);
+        Color yellow = new Color32(255, 224, 129, 255);
         Color lightRed = new Color32(254, 2, 0, 255);
         Color blue = new Color32(159, 197, 233, 255);
         Color lightBlack = new Color32(67, 67, 67, 255);
@@ -327,22 +331,24 @@ public class ForCreateSceneController : MonoBehaviour
         GameObject[] allTiles = GameObject.FindGameObjectsWithTag("Tile");
         List<Vector3> coloredTiles = new List<Vector3>();
         List<GameObject> TilesName = new List<GameObject>();
-        int numberOfAllTiles = 0;
 
-        Debug.Log("alltiles:"+allTiles.Length);
+        GameObject targetTileInst = Instantiate(targetTileTemp);
+        targetTileInst.gameObject.name = "TargetTile-" + level.ToString();
+        targetTileInst.AddComponent<TargetTile>();
+        targetTileInst.GetComponent<TargetTile>().width = spawnWidth;
+        targetTileInst.GetComponent<TargetTile>().height = spawnHeight;
         for (int i = 0; i < allTiles.Length; i++)
         {
             if (allTiles[i].GetComponent<SpriteRenderer>().color == transparent)
             {
                 Destroy(allTiles[i]);
                 // Debug.Log(coloredBlocks[i]);
-                numberOfAllTiles++;
             }
-
             else if (allTiles[i].GetComponent<SpriteRenderer>().color == wallColor)
             {
                 allTiles[i].tag = "WallTile";
             }
+            allTiles[i].transform.SetParent(targetTileInst.transform, true);
         }
     }
 }

@@ -16,6 +16,9 @@ public class NewTargetSpawner : MonoBehaviour
     Vector3 targetPos;
     Vector3 targetScale;
 
+    //NewButtonControllerスクリプトで使うやつ
+    static public Dictionary<Vector3, Color> answerDict;
+
     void Start()
     {
         SpawnTile();
@@ -26,6 +29,13 @@ public class NewTargetSpawner : MonoBehaviour
     {
         targetTileInst = NewGameSceneController.targetTileInst;
         targetTileInst.gameObject.name = "TargetTile";
+
+        //
+        answerDict = new Dictionary<Vector3, Color>();
+        foreach(Transform childTransform in targetTileInst.transform)
+        {
+            answerDict.Add(childTransform.localPosition, childTransform.GetComponent<SpriteRenderer>().color);
+        }
     }
 
     void LevelChange()

@@ -20,6 +20,12 @@ TagManager:
   - RotatePointObj
   - Tile
   - WallTile
+  - DrawableTiles
+  - Canvas
+  - ColorButtons
+  - MenuPanel
+  - MenuBackgroundButton
+  - BlueImg
   layers:
   - Default
   - TransparentFX
