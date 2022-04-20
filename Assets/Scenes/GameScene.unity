@@ -7402,11 +7402,11 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
-  m_StartAxis: 1
-  m_CellSize: {x: 208, y: 1}
-  m_Spacing: {x: 10.9, y: 48.9}
+  m_StartAxis: 0
+  m_CellSize: {x: 203.31, y: 188}
+  m_Spacing: {x: 25.1, y: 48.9}
   m_Constraint: 1
-  m_ConstraintCount: 3
+  m_ConstraintCount: 4
 --- !u!114 &1885417426
 MonoBehaviour:
   m_ObjectHideFlags: 0

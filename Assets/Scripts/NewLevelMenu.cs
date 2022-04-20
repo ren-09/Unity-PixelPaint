@@ -11,9 +11,14 @@ public class NewLevelMenu : MonoBehaviour
     GameObject clickedGameObject;
     GameObject[] levelButtons;
     GameObject[] levelTargetImgs;
+
+    //Setting()
+    [SerializeField] GameObject tilePlane;
+    GameObject[] tilePlaneInsts;
+    
     //LevelChange用
-    int height;
-    int width;
+    int t_height;
+    int t_width;
     float c_fieldOfView;
     Vector3 additionalCPos;
 
@@ -41,8 +46,8 @@ public class NewLevelMenu : MonoBehaviour
 
     List<GameObject> stars = new List<GameObject>();
 
-    Dictionary<int, bool> unlockedLevels = NewGameManager.unlockedLevels;
-    Dictionary<int, int> staredLevels = NewGameManager.staredLevels;
+    bool[] unlockedLevels = NewGameManager.unlockedLevels;
+    int[] staredLevels = NewGameManager.staredLevels;
 
     //引き継ぎ変数
 
@@ -67,12 +72,12 @@ public class NewLevelMenu : MonoBehaviour
 
         //levelButtonの数を検索することでallStageを代入
         tilesPos = new Vector3(-108.0f, -138.0f, 0f);
-        cameraPos = new Vector3(-103.5f, -133.5f, -8.9f);
+        cameraPos = new Vector3(-103.5f, -133f, -8.9f);
 
         //RenderTexture用にtargetTilesとcameraを生成
         for (int i = 0; i < numberOfLevelTargetImgs; i++)
         {
-            //coloredplaneを一つずつ生成
+            //TargetTileを一つずつ生成
             tilesName = "TargetTile-" + (i + 1).ToString();
             targetTiles = (GameObject)Resources.Load(tilesName);
             //ResourcesにTargetTilesが存在しなければ抜ける
@@ -80,12 +85,28 @@ public class NewLevelMenu : MonoBehaviour
             {
                 continue;
             }
-            GameObject planeInstance = Instantiate(targetTiles, tilesPos, Quaternion.identity);
+            GameObject tTilesInst = Instantiate(targetTiles, tilesPos, Quaternion.identity);
+            //tileをplaneに変換
+            int m = 0;
+            GameObject[] tilePlaneInsts = new GameObject[tTilesInst.transform.childCount];
+            foreach(Transform childTransform in tTilesInst.transform)
+            {
+                tilePlaneInsts[m] = Instantiate(tilePlane, childTransform.position, Quaternion.identity);
+                tilePlaneInsts[m].GetComponent<SpriteRenderer>().color = childTransform.GetComponent<SpriteRenderer>().color;
+                Destroy(childTransform.gameObject);
+                m++;
+            }
+
+            for(int s = 0; s < tilePlaneInsts.Length; s++)
+            {
+                tilePlaneInsts[s].transform.SetParent(tTilesInst.transform, true);
+            }
+            
             tilesPos.x += 16.0f;
 
             //planeの大きさに合わせてカメラの位置変更
-            width = planeInstance.GetComponent<TargetTile>().width;
-            height = planeInstance.GetComponent<TargetTile>().height;
+            t_width = tTilesInst.GetComponent<TargetTile>().width;
+            t_height = tTilesInst.GetComponent<TargetTile>().height;
             LevelChange();
 
             //cameraも生成
@@ -111,42 +132,80 @@ public class NewLevelMenu : MonoBehaviour
             levelButtonInst.transform.SetParent(canvas.transform, false);
             levelButtonInst.transform.SetParent(buttonSummary.transform, false);
         }
+
+        NewButtonsController.levelButtons = GameObject.FindGameObjectsWithTag("LevelButton");
     }
 
     void LevelChange()
     {
-        switch (width)
+        switch(t_width)
         {
-            case 6:
-                switch (height)
+            case 7:
+                switch(t_height)
                 {
+                    case 11:
+                    //2
+                        additionalCPos.x = -1.5f;
+                        additionalCPos.y = 0f;
+                        c_fieldOfView = 64.0f;
+                        break;
                     case 6:
-                        additionalCPos.x = -2.0f;
+                    //5
+                        additionalCPos.x = -1.5f;
+                        additionalCPos.y = -2.5f;
+                        c_fieldOfView = 43.0f;
+                        break;
+                    case 9:
+                    //9.12
+                        additionalCPos.x = -1.5f;
+                        additionalCPos.y = -1f;
+                        c_fieldOfView = 55.0f;
+                        break;
+                    case 7:
+                    //10
+                        additionalCPos.x = -1.5f;
                         additionalCPos.y = -2.0f;
                         c_fieldOfView = 45.0f;
                         break;
-                    case 7:
-                        additionalCPos.x = -2.0f;
-                        additionalCPos.y = -1.0f;
-                        c_fieldOfView = 45.0f;
+                    default:
+                        additionalCPos.x = 0f;
+                        additionalCPos.y = 0f;
+                        c_fieldOfView = 60.0f;
                         break;
                 }
-
                 break;
             case 8:
-                additionalCPos.x = -1.0f;
-                additionalCPos.y = -1.0f;
-                c_fieldOfView = 50.0f;
+            //1
+                additionalCPos.x = 0f;
+                additionalCPos.y = 0f;
+                c_fieldOfView = 49.0f;
+                break;
+            case 9:
+            //6.7.8
+                additionalCPos.x = -0.5f;
+                additionalCPos.y = -0.5f;
+                c_fieldOfView = 60.0f;
                 break;
             case 10:
-                additionalCPos = Vector3.zero;
+            //3.11
+                additionalCPos.x = 0f;
+                additionalCPos.y = -0.5f;
+                c_fieldOfView = 60.0f;
+                break;
+            case 11:
+            //4
+                additionalCPos.x = 0f;
+                additionalCPos.y = 0f;
                 c_fieldOfView = 60.0f;
                 break;
             default:
-                additionalCPos = Vector3.zero;
+                additionalCPos.x = 0f;
+                additionalCPos.y = 0f;
                 c_fieldOfView = 60.0f;
                 break;
         }
+        // additionalCPos = Vector3.zero;
+        // c_fieldOfView = 60.0f;
     }
 
     void IconAppear()
@@ -155,8 +214,10 @@ public class NewLevelMenu : MonoBehaviour
         //メニュー内レベルの画像の変更処理
         int n = 0;
         numberOfRT = renderTextures.Count;
+        unlockedLevels = NewGameManager.unlockedLevels;
         for (int i = 0; i < tTilesCounted; i++)
         {
+            //RenderTexture以上になったら抜ける
             if (n > numberOfRT - 1)
             {
                 continue;
@@ -174,10 +235,11 @@ public class NewLevelMenu : MonoBehaviour
     {
         //メニュー内スターの画像変更処理
         int m = 0;
+        staredLevels = NewGameManager.staredLevels;
         foreach (Transform childTransform in buttonSummary.transform)
         {
             // resourcesのCplanesよりもbuttonsummaryの子要素の数が多かったら抜ける
-            if (m + 0 == tTilesCounted)
+            if (m == tTilesCounted)
             {
                 continue;
             }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class NewGameManager : MonoBehaviour
 {
     //levelMenu用
-    static public Dictionary<int, bool> unlockedLevels = new Dictionary<int, bool>();
-    static public Dictionary<int, int> staredLevels = new Dictionary<int, int>();
+    static public bool[] unlockedLevels;
+    static public int[] staredLevels;
     
     //Resources内検索用
     string tTilesName;
@@ -33,6 +33,9 @@ public class NewGameManager : MonoBehaviour
 
             tTilesCounted++;
         }
+
+        unlockedLevels = new bool[tTilesCounted];
+        staredLevels = new int[tTilesCounted];
 
         for (int i = 0; i < tTilesCounted; i++)
         {

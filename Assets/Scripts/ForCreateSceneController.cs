@@ -182,7 +182,6 @@ public class ForCreateSceneController : MonoBehaviour
                 GameObject tileInst = Instantiate(tile);
                 tileInst.transform.position = new Vector3(x, y, 0);
                 tileInst.GetComponent<Tile>().toWhite();
-                tileInst.GetComponent<Tile>().colorIs();
                 fieldTiles.Add(new Vector2(x, y));
                 i++;
             }

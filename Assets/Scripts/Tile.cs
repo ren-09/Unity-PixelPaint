@@ -16,17 +16,6 @@ public class Tile : MonoBehaviour
         white = Color.white;
         themeColor = ForCreateSceneController.themeColor;
         transparent = ForCreateSceneController.transparent;
-        Debug.Log("whiteIs"+white);
-    }
-
-    void Start()
-    {
-        
-    }
-
-    public void SetColor()
-    {
-        
     }
 
     //GamwManagementで色を確認する
@@ -37,11 +26,6 @@ public class Tile : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public void colorIs()
-    {
-        Debug.Log("coloris"+GetComponent<SpriteRenderer>().color);
     }
 
     //透明なマテリアルを付与

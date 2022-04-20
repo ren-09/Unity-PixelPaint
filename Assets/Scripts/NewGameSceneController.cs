@@ -11,7 +11,8 @@ public class NewGameSceneController : MonoBehaviour
     public static GameObject targetTileInst;
     public static int t_height;
     public static int t_width;
-    public static int level;
+    public static int level = 1;
+    public static int score = 0;
     [SerializeField] GameObject newTargetSpawner;
     [SerializeField] GameObject newButtonsController;
 
@@ -19,6 +20,11 @@ public class NewGameSceneController : MonoBehaviour
     [SerializeField] Button colorButtonTemp;
     public static Button colorButton;
     public static GameObject activeBlueImg;
+
+    //LevelChange()
+    Camera mainCamera;
+    Vector3 c_pos;
+    float c_size;
 
     //SpawnTiles()
     GameObject drawableTiles;
@@ -32,15 +38,25 @@ public class NewGameSceneController : MonoBehaviour
     
     void Start()
     {
+        //TargetTilesのロードやオブジェクトのInstantaite
         Setting();
+        //カメラ位置の変更
+        LevelChange();
+        //DrawableTilesをspawn
         SpawnTiles();
     }
 
+    void Update()
+    {
+        Drawing();
+    }
+
+    //Start().begin
     void Setting()
     {
-        level = 1;
         //heightとwidthの取得
         tileName = "TargetTile-" + level.ToString();
+        Debug.Log("level"+level);
         targetTileRoaded = (GameObject)Resources.Load(tileName);
         targetTileInst = Instantiate(targetTileRoaded, Vector3.zero, Quaternion.identity);
         t_height = targetTileInst.GetComponent<TargetTile>().height;
@@ -50,6 +66,64 @@ public class NewGameSceneController : MonoBehaviour
         //SerializeFieldをstaticに
         colorButton = colorButtonTemp;
         Instantiate(newButtonsController);
+    }
+
+    void LevelChange()
+    {
+        mainCamera = Camera.main;
+        
+        
+        switch(t_width)
+        {
+            case 7:
+                switch(t_height)
+                {
+                    case 11:
+                        c_pos = new Vector3(2.9f, 4.0f, -10f);
+                        c_size = 14f;
+                        break;
+                    case 6:
+                        c_pos = new Vector3(2.9f, 2.3f, -10f);
+                        c_size = 12.0f;
+                        break;
+                    case 9:
+                        c_pos = new Vector3(2.8f, 3.8f, -10f);
+                        c_size = 13f;
+                        break;
+                    case 7:
+                        c_pos = new Vector3(2.4f, 3.1f, -10f);
+                        c_size = 12f;
+                        break;
+                    default:
+                        c_pos = new Vector3(2.8f, 3.8f, -10f);
+                        c_size = 13f;
+                        break;
+                }
+                break;
+            case 8:
+                c_pos = new Vector3(4.3f, 4.9f, -10f);
+                c_size = 14f;
+                break;
+            case 9:
+                c_pos = new Vector3(3.8f, 3.9f, -10f);
+                c_size = 15f;
+                break;
+            case 10:
+                c_pos = new Vector3(4.4f, 3.9f, -10f);
+                c_size = 16f;
+                break;
+            case 11:
+                c_pos = new Vector3(3.6f, 4.3f, -10f);
+                c_size = 16f;
+                break;
+            default:
+                c_pos = new Vector3(3.6f, 4.3f, -10f);
+                c_size = 16f;
+                break;
+        }
+
+        mainCamera.transform.position = c_pos;
+        mainCamera.orthographicSize = c_size;
     }
 
     void SpawnTiles()
@@ -62,16 +136,12 @@ public class NewGameSceneController : MonoBehaviour
         {
             if( childTransform.tag == "Tile" && childTransform.GetComponent<SpriteRenderer>().color != Color.white)
             {
-                childTransform.GetComponent<SpriteRenderer>().color = Color.white;
+                // childTransform.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
     }
-
-    void Update()
-    {
-        Drawing();
-    }
-
+    //Start().end
+    //Update().begin
     void Drawing()
     {
         if (Input.GetMouseButtonDown(0))
@@ -143,4 +213,5 @@ public class NewGameSceneController : MonoBehaviour
             }
         }
     }
+    //Update().end
 }

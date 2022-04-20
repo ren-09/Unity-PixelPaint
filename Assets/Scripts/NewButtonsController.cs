@@ -26,7 +26,9 @@ public class NewButtonsController : MonoBehaviour
     Color chosenColor;
 
     //LevelChangeButton()
-    GameObject[] levelButtons;
+    //NewLevelMenu()内で代入
+    public static GameObject[] levelButtons;
+
 
     //OnOkButton()
     static public Dictionary<Vector3, Color> answerDict = new Dictionary<Vector3, Color>();
@@ -34,6 +36,11 @@ public class NewButtonsController : MonoBehaviour
     Vector3 keyPos;
     int numOfTiles = 0;
     int numOfCorrects = 0;
+    public static int numOfAnswers = 0;
+    int score = 0;
+    //臨時
+    bool[] unlockedLevels = NewGameManager.unlockedLevels;
+    int[] staredLevels = NewGameManager.staredLevels;
 
     void Start()
     {
@@ -55,7 +62,6 @@ public class NewButtonsController : MonoBehaviour
         //各種ボタンスクリプト
         menuPanel = GameObject.FindWithTag("MenuPanel");
         menuBackgroundButton = GameObject.FindWithTag("MenuBackgroundButton");
-        levelButtons = GameObject.FindGameObjectsWithTag("LevelButton");
     }
 
     void ColorButtonsControl()
@@ -103,7 +109,6 @@ public class NewButtonsController : MonoBehaviour
 
     public void OnLevelChangeButton(GameObject clickedGameObject)
     {
-
         int clickedLevel = Array.IndexOf(levelButtons, clickedGameObject, 0) + 1;
         Debug.Log(clickedLevel);
         NewGameSceneController.level = clickedLevel;
@@ -154,20 +159,67 @@ public class NewButtonsController : MonoBehaviour
     {
         drawableTiles = GameObject.FindWithTag("DrawableTiles");
         answerDict = NewTargetSpawner.answerDict;
+        level = NewGameSceneController.level;
+        unlockedLevels = NewGameManager.unlockedLevels;
+        staredLevels = NewGameManager.staredLevels;
         
         numOfTiles = 0;
         numOfCorrects = 0;
         foreach(Transform childTransform in drawableTiles.transform)
         {
             keyPos = childTransform.localPosition;
-            if(childTransform.gameObject.tag == "Tile" && answerDict[keyPos] == childTransform.GetComponent<SpriteRenderer>().color)
+            if(childTransform.gameObject.tag == "Tile")
             {
-                numOfCorrects++;
+                numOfTiles++;
+                if(answerDict[keyPos] == childTransform.GetComponent<SpriteRenderer>().color)
+                {
+                    numOfCorrects++;
+                }
             }
-            numOfTiles++;
+            
         }
         Debug.Log(numOfCorrects);
         Debug.Log(numOfTiles);
+        Debug.Log(numOfAnswers);
+
+        if (numOfAnswers == numOfCorrects && numOfAnswers == numOfTiles)
+        {
+            score = 3;
+            // Debug.Log("score:3");
+        }
+        else if (numOfAnswers * 0.25 > numOfCorrects && numOfAnswers >= numOfTiles)
+        {
+            score = 1;
+            // Debug.Log("score:1の1");
+        }
+        else if (numOfAnswers == numOfCorrects && numOfAnswers * 1.25 >= numOfTiles)
+        {
+            score = 1;
+            // Dcebug.Log("score:1の2");
+        }
+        else
+        {
+            score = 0;
+            // Debug.Log("score:1の2");
+        }
+
+        NewGameSceneController.score = score;
+        Debug.Log("score:"+score);
+        Debug.Log("level" + level);
+        unlockedLevels[level - 1] = true;
+        staredLevels[level - 1] = score;
+        if(score > 0)
+        {
+            NewGameSceneController.level++;
+        }
+        numOfAnswers = 0;
+        // Invoke("OnLoadResultScene", 3f);
+        OnLoadResultScene();
+    }
+
+    void OnLoadResultScene()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     //使ってないから消してもいい
