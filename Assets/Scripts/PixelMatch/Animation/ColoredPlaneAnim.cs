@@ -21,21 +21,16 @@ public class ColoredPlaneAnim : MonoBehaviour
 
     void Start()
     {
-        //参照
-
         //アニメーション
-        step_time = 0.0f;
+        step_time = Time.time;
         move_time = 0.0f;
         division = 20f;
 
-        //アニメーション
-        step_time = Time.time;
         positionDifference.x = transform.position.x;
         positionDifference.y = transform.position.y;
         dividedPositionDifference = positionDifference / division;
         sizeDifference = targetSize - transform.localScale;
         dividedSizeDifference = sizeDifference / division;
-        // Debug.Log("DivSizeDif:" + sizeDifference);
         DontDestroyManager.DontDestroyOnLoad(this.gameObject);
     }
 

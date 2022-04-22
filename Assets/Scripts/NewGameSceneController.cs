@@ -5,16 +5,21 @@ using UnityEngine.UI;
 
 public class NewGameSceneController : MonoBehaviour
 {
+    //TargetAnimスクリプト用
+
+
     //Setting()
     string tileName;
     GameObject targetTileRoaded;
     public static GameObject targetTileInst;
     public static int t_height;
     public static int t_width;
-    public static int level = 1;
+    public static int level;
     public static int score = 0;
     [SerializeField] GameObject newTargetSpawner;
     [SerializeField] GameObject newButtonsController;
+    [SerializeField] GameObject congratsText;
+    [SerializeField] GameObject fromStartButton;
 
     //NewButtonControllerスクリプト用
     [SerializeField] Button colorButtonTemp;
@@ -22,19 +27,24 @@ public class NewGameSceneController : MonoBehaviour
     public static GameObject activeBlueImg;
 
     //LevelChange()
+    public static int tTilesCounted;
     Camera mainCamera;
-    Vector3 c_pos;
-    float c_size;
+    public static Vector3 c_pos;
+    public static float c_size;
 
     //SpawnTiles()
-    GameObject drawableTiles;
+    public static GameObject drawableTiles;
 
     //Drawing()
     GameObject clickedGameObject;
     private List<GameObject> listOfTiles = new List<GameObject>();
     private GameObject lastTile;
-    public GameObject tile;
     public static Color chosenColor;
+
+    void Awake()
+    {
+        DontDestroyManager.DestroyAll();
+    }
     
     void Start()
     {
@@ -54,6 +64,25 @@ public class NewGameSceneController : MonoBehaviour
     //Start().begin
     void Setting()
     {
+        //これが最初
+        level = NewGameManager.level;
+        tTilesCounted = NewGameManager.tTilesCounted;
+        //上限
+        if (level < tTilesCounted + 1)
+        {
+            // rotatePlane.SetActive(true);
+            // stopPlane.SetActive(true);
+        }
+        Debug.Log("ttilesCounted"+tTilesCounted);
+        if(level >= tTilesCounted + 1)
+        {
+            congratsText.SetActive(true);
+            fromStartButton.SetActive(true);
+            Debug.Log("はい行けたよ");
+            return;
+        }
+
+        
         //heightとwidthの取得
         tileName = "TargetTile-" + level.ToString();
         Debug.Log("level"+level);
@@ -63,13 +92,17 @@ public class NewGameSceneController : MonoBehaviour
         t_width = targetTileInst.GetComponent<TargetTile>().width;
 
         Instantiate(newTargetSpawner);
-        //SerializeFieldをstaticに
+        //SerializeFieldをstaticに代入
         colorButton = colorButtonTemp;
-        Instantiate(newButtonsController);
+        NewButtonsController.PublicStart();
+
+        congratsText.SetActive(false);
+        fromStartButton.SetActive(false);
     }
 
     void LevelChange()
     {
+        
         mainCamera = Camera.main;
         
         

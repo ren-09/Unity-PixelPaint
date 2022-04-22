@@ -45,7 +45,7 @@ public class GameSceneController : MonoBehaviour
     [SerializeField] GameObject restartButton;
     [SerializeField] GameObject congratsText;
     [SerializeField] GameObject fromStartButton;
-    [SerializeField] GameObject targetSpawner;
+     GameObject targetSpawner;
 
     Camera mainCamera;
     // ColorSwitch用

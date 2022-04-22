@@ -42,7 +42,7 @@ public class NewLevelMenu : MonoBehaviour
     public Sprite starSprite;
 
 
-    int level = NewGameSceneController.level;
+    int level = NewGameManager.level;
 
     List<GameObject> stars = new List<GameObject>();
 
@@ -60,6 +60,11 @@ public class NewLevelMenu : MonoBehaviour
         IconAppear();
 
         StarAppear();
+        
+        for (int i = 0; i < unlockedLevels.Length; i++)
+        {
+            Debug.Log("unlocked:" + unlockedLevels[i]);
+        }
     }
 
     void Setting()

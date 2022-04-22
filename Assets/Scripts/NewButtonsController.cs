@@ -8,22 +8,24 @@ using UnityEngine.SceneManagement;
 public class NewButtonsController : MonoBehaviour
 {
     //Setting()
-    int level;
+    public static int level;
 
     //ColorButtonsControl()
-    Button colorButton;
+    public static Button colorButton;
     public static List<Color> paintColors;
-    int numOfColorButtons;
-    GameObject targetTileInst;
-    GameObject canvas;
-    GameObject colorButtons;
-    GameObject[] blueImgs;
-    GameObject activeBlueImg;
+    public static int numOfColorButtons;
+    public static GameObject targetTileInst;
+    [SerializeField] GameObject canvasSerialized;
+    public static GameObject canvas;
+    [SerializeField] GameObject colorButtonsSerialized;
+    public static GameObject colorButtons;
+    public static GameObject[] blueImgs;
+    public static GameObject activeBlueImg;
 
     //各種ボタンスクリプト
-    GameObject menuPanel;
-    GameObject menuBackgroundButton;
-    Color chosenColor;
+    [SerializeField] GameObject menuPanel;
+    [SerializeField] GameObject menuBackgroundButton;
+    public static Color chosenColor;
 
     //LevelChangeButton()
     //NewLevelMenu()内で代入
@@ -38,33 +40,34 @@ public class NewButtonsController : MonoBehaviour
     int numOfCorrects = 0;
     public static int numOfAnswers = 0;
     int score = 0;
-    //臨時
-    bool[] unlockedLevels = NewGameManager.unlockedLevels;
-    int[] staredLevels = NewGameManager.staredLevels;
+    [SerializeField] GameObject okButton;
 
     void Start()
     {
-        Setting();
-        ColorButtonsControl();
+        canvas = canvasSerialized;
+        colorButtons = colorButtonsSerialized;
     }
 
-    void Setting()
+    public static void PublicStart()
     {
-        level = NewGameSceneController.level;
+        Setting();
+        if(SceneManager.GetSceneByName("GameScene").IsValid())
+        {
+            ColorButtonsControl();
+        }
+    }
+
+    public static void Setting()
+    {
+        level = NewGameManager.level;
         
         //ColoredButtonsControl()
         paintColors = new List<Color>();
-        canvas = GameObject.FindWithTag("Canvas");
-        colorButtons = GameObject.FindWithTag("ColorButtons");
         colorButton = NewGameSceneController.colorButton;
         activeBlueImg = NewGameSceneController.activeBlueImg;
-
-        //各種ボタンスクリプト
-        menuPanel = GameObject.FindWithTag("MenuPanel");
-        menuBackgroundButton = GameObject.FindWithTag("MenuBackgroundButton");
     }
 
-    void ColorButtonsControl()
+    public static void ColorButtonsControl()
     {
         //GameSceneControllerのtargetTileInstから色を取得
         targetTileInst = NewGameSceneController.targetTileInst;
@@ -94,7 +97,7 @@ public class NewButtonsController : MonoBehaviour
         }
     }
 
-    public void OnColorButton(GameObject clickedButton)
+    public static void OnColorButton(GameObject clickedButton)
     {
         Transform coloredImg = clickedButton.transform.Find("ColoredImg");
         chosenColor = coloredImg.gameObject.GetComponent<Image>().color;
@@ -111,7 +114,7 @@ public class NewButtonsController : MonoBehaviour
     {
         int clickedLevel = Array.IndexOf(levelButtons, clickedGameObject, 0) + 1;
         Debug.Log(clickedLevel);
-        NewGameSceneController.level = clickedLevel;
+        NewGameManager.level = clickedLevel;
 
         SceneManager.LoadScene("GameScene");
     }
@@ -143,25 +146,34 @@ public class NewButtonsController : MonoBehaviour
 
     public void OnXButton()
     {
-        menuPanel = GameObject.FindWithTag("MenuPanel");
-        menuBackgroundButton = GameObject.FindWithTag("MenuBackgroundButton");
         menuPanel.SetActive(false);
         menuBackgroundButton.SetActive(false);
     }
 
     public void OnFromStartButton()
     {
-        GameSceneController.level = 1;
+        NewGameManager.level = 1;
         SceneManager.LoadScene("GameScene");
     }
 
     public void OnOkButton()
     {
-        drawableTiles = GameObject.FindWithTag("DrawableTiles");
+        drawableTiles = NewGameSceneController.drawableTiles;
+        ActivateAnim();
+        CheckAnswer();
+    }
+
+    void ActivateAnim()
+    {
+        targetTileInst = NewGameSceneController.targetTileInst;
+        drawableTiles.AddComponent<DrawableAnim>();
+        targetTileInst.AddComponent<TargetAnim>();
+    }
+
+    void CheckAnswer()
+    {
         answerDict = NewTargetSpawner.answerDict;
-        level = NewGameSceneController.level;
-        unlockedLevels = NewGameManager.unlockedLevels;
-        staredLevels = NewGameManager.staredLevels;
+        level = NewGameManager.level;
         
         numOfTiles = 0;
         numOfCorrects = 0;
@@ -178,47 +190,48 @@ public class NewButtonsController : MonoBehaviour
             }
             
         }
-        Debug.Log(numOfCorrects);
-        Debug.Log(numOfTiles);
-        Debug.Log(numOfAnswers);
 
         if (numOfAnswers == numOfCorrects && numOfAnswers == numOfTiles)
         {
             score = 3;
-            // Debug.Log("score:3");
+            Debug.Log("score:3");
         }
         else if (numOfAnswers * 0.25 > numOfCorrects && numOfAnswers >= numOfTiles)
         {
             score = 1;
-            // Debug.Log("score:1の1");
+            Debug.Log("score:1の1");
         }
         else if (numOfAnswers == numOfCorrects && numOfAnswers * 1.25 >= numOfTiles)
         {
             score = 1;
-            // Dcebug.Log("score:1の2");
+            Debug.Log("score:1の2");
         }
         else
         {
             score = 0;
-            // Debug.Log("score:1の2");
+            Debug.Log("score:0");
         }
 
+        okButton.SetActive(false);
         NewGameSceneController.score = score;
-        Debug.Log("score:"+score);
-        Debug.Log("level" + level);
-        unlockedLevels[level - 1] = true;
-        staredLevels[level - 1] = score;
-        if(score > 0)
-        {
-            NewGameSceneController.level++;
-        }
+        // Debug.Log("score:"+score);
+        // Debug.Log("level" + level);
         numOfAnswers = 0;
-        // Invoke("OnLoadResultScene", 3f);
-        OnLoadResultScene();
+        Invoke("OnLoadResultScene", 3f);
     }
 
     void OnLoadResultScene()
     {
+        SceneManager.LoadScene("ResultScene");
+    }
+
+    public void OnNextButton()
+    {
+        score = NewGameSceneController.score;
+        if (score > 0)
+        {
+            NewGameManager.level++;
+        }
         SceneManager.LoadScene("GameScene");
     }
 

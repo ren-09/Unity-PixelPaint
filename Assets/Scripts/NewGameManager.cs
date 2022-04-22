@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class NewGameManager : MonoBehaviour
 {
+    //Awake()用
+    public static int level = 1;
+
     //levelMenu用
     static public bool[] unlockedLevels;
     static public int[] staredLevels;
@@ -42,6 +45,8 @@ public class NewGameManager : MonoBehaviour
             unlockedLevels[i] = !unlocked;
             staredLevels[i] = numberOfStars;
         }
+
+        Debug.Log("やられてますね");
     }
 
     void Start()
