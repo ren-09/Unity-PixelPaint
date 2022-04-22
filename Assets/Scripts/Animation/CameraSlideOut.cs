@@ -36,7 +36,7 @@ public class CameraSlideOut : MonoBehaviour
         if (timesCalled >= division)
         {
             transform.position = new Vector3(aimedPosX, startPos.y, startPos.z);
-            Invoke("OnLoadGameScene", 0.5f);
+            Invoke("OnLoadGameScene", 0.1f);
             return;
         }
         transform.position += new Vector3(dividedPosDifX, 0f, 0f);

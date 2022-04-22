@@ -22,9 +22,11 @@ public class BackgroundColor : MonoBehaviour
                 bgColorName = "Pink";
                 break;
             case 2:
+            case 9:
                 bgColorName = "Blue";
                 break;
             case 3:
+            case 7:
             case 12:
                 bgColorName = "Yellow";
                 break;
@@ -38,6 +40,9 @@ public class BackgroundColor : MonoBehaviour
                 break;
             case 11:
                 bgColorName = "Red";
+                break;
+            case 8:
+                bgColorName = "Gray";
                 break;
             default:
                 bgColorName = "Yellow";

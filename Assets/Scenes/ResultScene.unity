@@ -699,7 +699,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cfb50628859a4c9493789b1d9d8ba64, type: 2}
+  - {fileID: 2100000, guid: 84cd6032960474054865a274cc7526cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5745,7 +5745,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97e84ead9b03b423b9f5420690eb502a, type: 2}
+  - {fileID: 2100000, guid: 183b1bf02cbc144ab8085344848b2b22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10665,7 +10665,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9d281ecae94014c61b78c65f649d097a, type: 2}
+  - {fileID: 2100000, guid: 756fb46b7573b47ccaf6860c241a37a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15504,7 +15504,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9d281ecae94014c61b78c65f649d097a, type: 2}
+  - {fileID: 2100000, guid: 756fb46b7573b47ccaf6860c241a37a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20305,6 +20305,78 @@ MonoBehaviour:
   FX_CrackerFall: {fileID: 155279145}
   image: {fileID: 1818982926}
   sprite: {fileID: 21300000, guid: f243d94c0aad847a4b8d8324f478a873, type: 3}
+--- !u!1 &1260430049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1260430051}
+  - component: {fileID: 1260430050}
+  m_Layer: 0
+  m_Name: Freeform Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1260430050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260430049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 763.12
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!4 &1260430051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260430049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.31, z: -7.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1276982034
 GameObject:
   m_ObjectHideFlags: 0
@@ -20357,7 +20429,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2cfb50628859a4c9493789b1d9d8ba64, type: 2}
+  - {fileID: 2100000, guid: 84cd6032960474054865a274cc7526cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25303,7 +25375,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b0783a948d2047ee98d137f4cfefff2, type: 2}
+  - {fileID: 2100000, guid: 5dc4fc2339454440abf8597361b6888f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -30541,7 +30613,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b0783a948d2047ee98d137f4cfefff2, type: 2}
+  - {fileID: 2100000, guid: 5dc4fc2339454440abf8597361b6888f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35961,7 +36033,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97e84ead9b03b423b9f5420690eb502a, type: 2}
+  - {fileID: 2100000, guid: 183b1bf02cbc144ab8085344848b2b22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -40725,6 +40797,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.19999981
       objectReference: {fileID: 0}
+    - target: {fileID: 833670317, guid: d5967213589b4458cba986f198f47d7a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5dc4fc2339454440abf8597361b6888f, type: 2}
     - target: {fileID: 833670318, guid: d5967213589b4458cba986f198f47d7a, type: 3}
       propertyPath: prewarm
       value: 0
@@ -40737,6 +40813,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.19999981
       objectReference: {fileID: 0}
+    - target: {fileID: 1636949243, guid: d5967213589b4458cba986f198f47d7a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 756fb46b7573b47ccaf6860c241a37a9, type: 2}
     - target: {fileID: 1636949244, guid: d5967213589b4458cba986f198f47d7a, type: 3}
       propertyPath: prewarm
       value: 0
@@ -40749,6 +40829,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.19999981
       objectReference: {fileID: 0}
+    - target: {fileID: 2070845334, guid: d5967213589b4458cba986f198f47d7a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 183b1bf02cbc144ab8085344848b2b22, type: 2}
     - target: {fileID: 2070845335, guid: d5967213589b4458cba986f198f47d7a, type: 3}
       propertyPath: prewarm
       value: 0
@@ -40813,6 +40897,10 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 3931469054637424285, guid: d5967213589b4458cba986f198f47d7a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 84cd6032960474054865a274cc7526cf, type: 2}
     - target: {fileID: 5332357527756159440, guid: d5967213589b4458cba986f198f47d7a, type: 3}
       propertyPath: m_Name
       value: FX_CrackerFall

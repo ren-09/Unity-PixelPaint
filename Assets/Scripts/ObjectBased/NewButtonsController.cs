@@ -36,13 +36,16 @@ public class NewButtonsController : MonoBehaviour
 
     //OnOkButton()
     static public Dictionary<Vector3, Color> answerDict = new Dictionary<Vector3, Color>();
-    GameObject drawableTiles;
+    public static GameObject drawableTiles;
     Vector3 keyPos;
     int numOfTiles = 0;
     int numOfCorrects = 0;
     public static int numOfAnswers;
     int score = 0;
     [SerializeField] GameObject okButton;
+
+    //ActiveAnim()
+    [SerializeField] GameObject lazer;
 
     void Start()
     {
@@ -115,9 +118,12 @@ public class NewButtonsController : MonoBehaviour
     public void OnLevelChangeButton(GameObject clickedGameObject)
     {
         int clickedLevel = Array.IndexOf(levelButtons, clickedGameObject, 0) + 1;
-        Debug.Log(clickedLevel);
+        menuPanel = GameObject.FindWithTag("MenuPanel");
+        menuBackgroundButton = GameObject.FindWithTag("MenuBackgroundButton");
+        menuBackgroundButton.SetActive(false);
         NewGameManager.level = clickedLevel;
         mainCamera = Camera.main;
+        menuPanel.AddComponent<MenuDownAnim>();
         mainCamera.gameObject.AddComponent<CameraSlideOut>();
     }
 
@@ -159,6 +165,7 @@ public class NewButtonsController : MonoBehaviour
 
         ActivateAnim();
         CheckAnswer();
+        Invoke("ActivateLazerAnim", 2f);
     }
 
     void ActivateAnim()
@@ -166,6 +173,13 @@ public class NewButtonsController : MonoBehaviour
         targetTileInst = NewGameSceneController.targetTileInst;
         drawableTiles.AddComponent<DrawableAnim>();
         targetTileInst.AddComponent<TargetAnim>();
+
+    }
+
+    void ActivateLazerAnim()
+    {
+        lazer.SetActive(true);
+        lazer.AddComponent<LazerAnim>();
     }
 
     void CheckAnswer()
@@ -220,7 +234,7 @@ public class NewButtonsController : MonoBehaviour
         // Debug.Log("numOfCorrects:"+numOfCorrects);
         // Debug.Log("score:"+score);
         // Debug.Log("level" + level);
-        Invoke("OnLoadResultScene", 3f);
+        Invoke("OnLoadResultScene", 4f);
     }
 
     void OnLoadResultScene()
