@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8038008572227067351}
   m_Layer: 5
   m_Name: ColorButton
-  m_TagString: Untagged
+  m_TagString: ColorButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 10000
+  m_PixelsPerUnitMultiplier: 0.27
 --- !u!1 &8038008573807214003
 GameObject:
   m_ObjectHideFlags: 0

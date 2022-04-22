@@ -26,6 +26,7 @@ TagManager:
   - MenuPanel
   - MenuBackgroundButton
   - BlueImg
+  - ColorButton
   layers:
   - Default
   - TransparentFX
