@@ -27,8 +27,24 @@ public class LazerAnim : MonoBehaviour
 
         posDifY = aimedPosY - startPos.y;
         dividedPosDifY = posDifY / division;
-
     }
+
+    // void LevelChange()
+    // {
+    //     var intensity = this.gameObject.GetComponent<light2d>().intensity;
+
+    //     switch (level)
+    //     {
+    //         case 3:
+    //         case 4:
+    //         case 10:
+    //         case 11:
+    //         case 12:
+    //             intensity = 1000;
+    //         default:
+    //             intensity = 10;
+    //     }
+    // }
 
     // Update is called once per frame
     void Update()
